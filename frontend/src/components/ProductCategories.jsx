@@ -61,13 +61,7 @@ const styles = {
   subHeading: { fontSize: "1.2rem", color: "#555", marginBottom: "40px", fontFamily: "'Roboto', sans-serif" },
   cardContainer: { display: "flex", justifyContent: "center", gap: "40px", flexWrap: "wrap" },
   imageContainer: { position: "relative", overflow: "hidden", cursor: "pointer", borderRadius: "12px", transition: "transform 0.3s ease-in-out" },
-  image: {
-    width: "280px",
-    height: "380px", // Set a fixed height
-    objectFit: "cover", // Ensures the images maintain aspect ratio without distortion
-    borderRadius: "10px",
-    transition: "transform 0.4s ease-in-out",
-  },
+  image: { width: "280px", height: "380px", objectFit: "cover", borderRadius: "10px", transition: "transform 0.4s ease-in-out" },
   overlay: {
     position: "absolute",
     bottom: "0",
@@ -83,8 +77,6 @@ const styles = {
     fontSize: "1.2rem",
     transition: "opacity 0.3s ease, transform 0.3s ease",
     borderRadius: "12px",
-    opacity: "0", // Initially hidden
-    transform: "translateY(30px)", // Initially moved down
   },
   overlayText: { margin: 0 },
 };

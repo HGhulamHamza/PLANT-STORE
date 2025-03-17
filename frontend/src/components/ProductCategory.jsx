@@ -13,12 +13,13 @@ const ProductCategory = () => {
   // Convert category short code to full name without spaces
   const getCategoryName = (shortCode) => {
     const categoryMap = {
-      ARTIFICIALPLANTS: "ARTIFICIAL PLANTS", // Map to backend category
-      NATURALPLANTSANDLEAVES: "NATURAL PLANTS AND FLOWERS", // Map to backend category
-      GREENROOFPLANTS: "GREEN ROOF PLANTS", // Map to backend category
+      ARTIFICIALPLANTS: "ARTIFICIAL PLANTS",
+      NATURALPLANTSANDLEAVES: "NATURAL PLANTS AND FLOWERS",
+      GREENROOFPLANTS: "GREEN ROOF PLANTS",
     };
-    return categoryMap[shortCode] || decodeURIComponent(shortCode).replace(/\s+/g, "");
+    return categoryMap[shortCode] || decodeURIComponent(shortCode);
   };
+  
   useEffect(() => {
     fetchProducts();
   }, [category]);
@@ -26,10 +27,10 @@ const ProductCategory = () => {
   const fetchProducts = async (query = "") => {
     setLoading(true);
     try {
-      const fullCategoryName = getCategoryName(category); // Convert category name
-      console.log("Fetching products for category:", fullCategoryName); // Debugging log
+      const fullCategoryName = getCategoryName(category);
+      console.log("Fetching products for category:", fullCategoryName);
   
-      const response = await axios.get(`http://localhost:5000/api/products/category/${fullCategoryName}`);
+      const response = await axios.get(`http://localhost:5000/api/products/category/${fullCategoryName}`); // ✅ Fixed URL
   
       let filteredProducts = response.data;
       if (query.trim()) {
@@ -41,10 +42,11 @@ const ProductCategory = () => {
       setProducts(filteredProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
-      setProducts([]); // Prevent undefined state
+      setProducts([]);
     }
     setLoading(false);
   };
+  
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -90,12 +92,13 @@ const ProductCategory = () => {
           products.map((product) => (
             <Grid item key={product._id} xs={12} sm={6} md={4}>
               <Card sx={{ boxShadow: 3, borderRadius: 2, transition: "0.3s", "&:hover": { transform: "scale(1.05)" } }}>
-                <CardMedia
-                  component="img"
-                  height="250"
-                  image={`http://localhost:5000/uploads/${product.image}`} // Corrected path
-                  alt={product.title}
-                />
+              <CardMedia
+               component="img"
+               height="250"
+               image={`http://localhost:5000/uploads/${product.image}`} // ✅ Fixed template literals
+               alt={product.title}
+/>
+
                 <CardContent>
                   <Typography variant="h6">{product.title}</Typography>
                   <Typography variant="body2" color="textSecondary">{product.category}</Typography>

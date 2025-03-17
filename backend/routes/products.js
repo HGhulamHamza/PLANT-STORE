@@ -27,17 +27,19 @@ const upload = multer({ storage });
 // Add Product API (Handling `form-data`)
 router.post("/add", upload.single("image"), async (req, res) => {
   try {
+    console.log("Uploaded File:", req.file); // Debugging Log
+
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required!" });
     }
 
-    const imagePath = `/uploads/${req.file.filename}`; // Store correct image path
+    const imagePath = `/uploads/${req.file.filename}`; // Correct image path
 
     const newProduct = new Product({
       title: req.body.title,
       price: req.body.price,
       category: req.body.category,
-      image: imagePath, // Store the full path
+      image: imagePath,
     });
 
     await newProduct.save();
@@ -60,31 +62,30 @@ router.get("/all", async (req, res) => {
 
 // Category mapping
 const categoryMap = {
-  ARTIFICIALPLANTS: "ARTIFICIAL PLANTS", // Map to database category
-  NATURALPLANTSANDLEAVES: "NATURAL PLANTS AND FLOWERS", // Map to database category
-  GREENROOFPLANTS: "GREEN ROOF PLANTS", // Map to database category
+  ARTIFICIALPLANTS: "ARTIFICIAL PLANTS",
+  NATURALPLANTSANDLEAVES: "NATURAL PLANTS AND FLOWERS",
+  GREENROOFPLANTS: "GREEN ROOF PLANTS",
 };
 
-// Get Products by Category
-router.get("/category/:category", async (req, res) => {
+router.get("/category/:categoryName", async (req, res) => {
   try {
-    const shortCategory = req.params.category.replace(/\s+/g, ""); // Remove spaces from request
-    const fullCategory = categoryMap[shortCategory] || req.params.category; // Map to correct DB category
+    const categoryKey = decodeURIComponent(req.params.categoryName).replace(/\s+/g, " ").trim();
+    const categoryRegex = new RegExp(`^${categoryKey}$`, "i"); // Case-insensitive, exact match
 
-    console.log("Requested Category:", req.params.category); // Debugging log
-    console.log("Mapped Category:", fullCategory); // Debugging log
+    console.log("Fetching products for category:", `"${categoryKey}"`);
 
-    const products = await Product.find({ category: fullCategory }); // Query database
+    const products = await Product.find({ category: categoryRegex });
 
     if (products.length === 0) {
-      return res.status(404).json({ message: "No products found in this category." });
+      console.log("No products found for category:", `"${categoryKey}"`);
     }
 
     res.json(products);
   } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error fetching category products:", error);
+    res.status(500).json({ error: "Server Error" });
   }
 });
+
 
 export default router;
