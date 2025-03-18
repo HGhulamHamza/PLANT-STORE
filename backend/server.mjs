@@ -23,7 +23,7 @@ app.use("/uploads", express.static(uploadDir));
 
 // Routes
 app.use("/api/products", productRoutes);
-
+app.use("/uploads", express.static(path.join(path.resolve(), "uploads")));
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
