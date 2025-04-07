@@ -3,6 +3,7 @@ import multer from "multer";
 import Product from "../models/Product.js";
 import path from "path";
 import fs from "fs";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -24,16 +25,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Add Product API (Handling `form-data`)
+// Add Product
 router.post("/add", upload.single("image"), async (req, res) => {
   try {
-    console.log("Uploaded File:", req.file); // Debugging Log
-
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required!" });
     }
 
-    const imagePath = `/uploads/${req.file.filename}`; // Correct image path
+    const imagePath = `/uploads/${req.file.filename}`;
 
     const newProduct = new Product({
       title: req.body.title,
@@ -50,42 +49,33 @@ router.post("/add", upload.single("image"), async (req, res) => {
   }
 });
 
-// Get All Products
-router.get("/all", async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Server Error" });
-  }
-});
 
-// Category mapping
-const categoryMap = {
-  ARTIFICIALPLANTS: "ARTIFICIAL PLANTS",
-  NATURALPLANTSANDLEAVES: "NATURAL PLANTS AND FLOWERS",
-  GREENROOFPLANTS: "GREEN ROOF PLANTS",
-};
-
+// Get products by category
 router.get("/category/:categoryName", async (req, res) => {
-  try {
-    const categoryKey = decodeURIComponent(req.params.categoryName).replace(/\s+/g, " ").trim();
-    const categoryRegex = new RegExp(`^${categoryKey}$`, "i"); // Case-insensitive, exact match
-
-    console.log("Fetching products for category:", `"${categoryKey}"`);
-
-    const products = await Product.find({ category: categoryRegex });
-
-    if (products.length === 0) {
-      console.log("No products found for category:", `"${categoryKey}"`);
+    try {
+        const categoryName = decodeURIComponent(req.params.categoryName);
+        const products = await Product.find({ category: categoryName });
+        res.json(products);
+    } catch (error) {
+        console.error("Error fetching category products:", error);
+        res.status(500).json({ message: "Server error" });
     }
+});
 
-    res.json(products);
+// Get a single product by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
   } catch (error) {
-    console.error("Error fetching category products:", error);
-    res.status(500).json({ error: "Server Error" });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 export default router;

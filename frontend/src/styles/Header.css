@@ -1,0 +1,94 @@
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background-color: transparent; /* Transparent Header */
+    width: 90%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    height: 50px;
+}
+
+/* Centered Nav Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 60px;
+    margin-left: 50px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555555; /* White Text */
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #006D00; /* Green Hover */
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background:white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    border: 1px solid #555555;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    width: 150px;
+}
+
+/* Cart Icon */
+.cart-icon {
+    font-size: 20px;
+    color: #555555;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+    color: #006D00;
+}
+
+/* Signup Button */
+.signup-btn {
+    background-color: #006D00;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+    transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+    background-color: #004d00;
+}

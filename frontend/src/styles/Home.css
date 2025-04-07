@@ -1,0 +1,121 @@
+/* General Styles */
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:#F9F9F9;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 120px 80px;
+    gap: 50px;
+    background-color:#F9F9F9; /* Light Brown */
+}
+
+/* Hero Text */
+.hero-text {
+    max-width: 550px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: bold;
+    color: #006D00; /* Updated Green */
+    margin: 0;
+}
+
+h1 span {
+    color: #555555; /* Cream color */
+}
+
+/* Paragraph */
+.hero-text p {
+    font-size: 18px;
+    color: #444;
+    margin-top: 15px;
+}
+
+/* Shop Now Button */
+.shop-now-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #006D00; /* Updated Green */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+}
+
+.shop-now-btn:hover {
+    background-color: #004d00; /* Darker Green */
+}
+
+/* Hero Image */
+.hero-image {
+    /* position: relative; */
+    width: 450px;
+    height: 500px;
+}
+
+.hero-image img {
+  
+    width: 97%;
+    height: 90%;
+    
+    object-fit: cover; 
+     border-radius: 50%;
+    border: 8px solid #006D00; 
+     box-shadow: 0px 10px 20px rgba(0, 128, 0, 0.3);
+    animation: float 3s ease-in-out infinite;
+} 
+/* 
+ @keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}  */
+.hero-text h1 {
+    font-size: 2.5rem; /* Adjust font size for h1 */
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .hero-text span.element {
+    font-size: 2.5rem; /* Ensure the span is styled like the rest of the text */
+    font-weight: bold;
+    color: #2A6E31; /* Adjust the color of the text */
+    display: inline-block;
+  }
+  
+  /* Optional: Smooth transition for the text */
+  .hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #34495e;
+  }
+  
+  .shop-now-btn {
+    background-color: #004D00;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: inline-block;
+  }
+  
+  .shop-now-btn:hover {
+    background-color: #2ecc71;
+  }
+  

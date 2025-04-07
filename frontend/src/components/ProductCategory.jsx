@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import { 
   Card, CardContent, CardMedia, Typography, Grid, Container, 
@@ -9,12 +9,14 @@ import { Search, ShoppingCart } from "@mui/icons-material";
 import Lottie from "lottie-react";
 import loaderAnimation from "../assets/plant-loader.json"; // Adjust path if needed
 
+
 const ProductCategory = () => {
   const { category } = useParams();
+  const navigate = useNavigate(); // Initialize navigation
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const getCategoryName = (shortCode) => {
     const categoryMap = {
@@ -33,7 +35,8 @@ const ProductCategory = () => {
     setLoading(true);
     try {
       const fullCategoryName = getCategoryName(category);
-      const response = await axios.get(`http://localhost:5000/api/products/category/${fullCategoryName}`);
+      const encodedCategory = encodeURIComponent(fullCategoryName);
+      const response = await axios.get(`http://localhost:5000/api/products/category/${encodedCategory}`);
       let filteredProducts = response.data;
 
       if (query.trim()) {
@@ -66,15 +69,16 @@ const ProductCategory = () => {
         {getCategoryName(category)}
       </Typography>
 
+      {/* Responsive Search Bar */}
       <Box display="flex" justifyContent="center" alignItems="center" gap={2} sx={{ mb: 3 }}>
         <TextField
           variant="outlined"
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleSearch}
+          onKeyDown={handleSearch}
           sx={{
-            width: "40%",
+            width: { xs: "90%", sm: "50%", md: "40%" },
             borderRadius: 2.8,
             backgroundColor: "#fff",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
@@ -100,20 +104,25 @@ const ProductCategory = () => {
               <Grid item key={product._id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
-                    width: "90%", // Reduced width for better spacing
-                    height: "100%", // Increased height
+                    width: "90%",
+                    height: "100%",
                     boxShadow: 3,
                     borderRadius: 2,
                     transition: "0.3s",
                     "&:hover": { transform: "scale(1.05)" },
+                    cursor: "pointer",
                   }}
                 >
+                  {/* Product Image (Clicking it navigates to ProductDetails page) */}
                   <CardMedia
                     component="img"
                     height="280"
                     image={`http://localhost:5000${product.image}`}
                     alt={product.title}
+                    onClick={() => navigate(`/product/${product._id}`)} // Navigate to ProductDetails page
+                    sx={{ cursor: "pointer" }}
                   />
+
                   <CardContent>
                     <Typography 
                       variant="h6" 
@@ -129,9 +138,11 @@ const ProductCategory = () => {
                       {product.category}
                     </Typography>
                     <Box display="flex" alignItems="center" justifyContent="space-between">
-                      <Typography variant="h5" sx={{ color: "#006600", fontWeight: "bold" }}>
-                        Rs {product.price}
-                      </Typography>
+                    <Typography variant="h5" sx={{ color: "#006600", fontWeight: "bold" }}>
+  {category === "GREENROOFPLANTS" ? "15$ per sqrft" : `Rs ${product.price}`}
+</Typography>
+
+
                       <IconButton onClick={handleAddToCart}>
                         <ShoppingCart sx={{ color: "#006600" }} />
                       </IconButton>
@@ -149,12 +160,7 @@ const ProductCategory = () => {
       )}
 
       {/* Snackbar Message */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
+      <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={() => setSnackbarOpen(false)} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
         <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: "100%" }}>
           Plant added to cart successfully
         </Alert>

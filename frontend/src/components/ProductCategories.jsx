@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header"; // Importing the Header component
 
 const ProductCategories = () => {
   const [hoverIndex, setHoverIndex] = useState(null);
   const navigate = useNavigate();
+
+ 
+  
 
   const categories = [
     {
@@ -24,44 +28,83 @@ const ProductCategories = () => {
   ];
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>PRODUCT CATEGORIES</h1>
-      <p style={styles.subHeading}>
-        Discover a greener future—explore wide range of innovative green roofs and premium plants
-      </p>
-      <div style={styles.cardContainer}>
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            style={styles.imageContainer}
-            onMouseEnter={() => setHoverIndex(index)}
-            onMouseLeave={() => setHoverIndex(null)}
-            onClick={() => navigate(category.route)}
-          >
-            <img src={category.image} alt={category.name} style={styles.image} />
+    <div>
+      <Header />
+      <div style={styles.container}>
+        <h1 style={styles.heading}>PRODUCT CATEGORIES</h1>
+        <p style={styles.subHeading}>
+          Discover a greener future—explore a wide range of innovative green roofs and premium plants.
+        </p>
+        <div style={styles.cardContainer}>
+          {categories.map((category, index) => (
             <div
-              style={{
-                ...styles.overlay,
-                opacity: hoverIndex === index ? 1 : 0,
-                transform: hoverIndex === index ? "translateY(0)" : "translateY(30px)",
-              }}
+              key={index}
+              style={styles.imageContainer}
+              onMouseEnter={() => setHoverIndex(index)}
+              onMouseLeave={() => setHoverIndex(null)}
+              onClick={() => navigate(category.route)}
             >
-              <h3 style={styles.overlayText}>{category.name}</h3>
+              <img src={category.image} alt={category.name} style={styles.image} />
+              <div
+                style={{
+                  ...styles.overlay,
+                  opacity: hoverIndex === index ? 1 : 0,
+                  transform: hoverIndex === index ? "translateY(0)" : "translateY(30px)",
+                }}
+              >
+                <h3 style={styles.overlayText}>{category.name}</h3>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 const styles = {
-  container: { textAlign: "center", padding: "25px 17px", background: "#f9f9f9", width: "98%" },
-  heading: { fontSize: "2.5rem", fontWeight: "bold", background: "linear-gradient(90deg, #004d00, #008000)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: "15px", fontFamily: "Lato" },
-  subHeading: { fontSize: "1.2rem", color: "#555", marginBottom: "40px", fontFamily: "'Roboto', sans-serif" },
-  cardContainer: { display: "flex", justifyContent: "center", gap: "40px", flexWrap: "wrap" },
-  imageContainer: { position: "relative", overflow: "hidden", cursor: "pointer", borderRadius: "12px", transition: "transform 0.3s ease-in-out" },
-  image: { width: "280px", height: "380px", objectFit: "cover", borderRadius: "10px", transition: "transform 0.4s ease-in-out" },
+  container: { 
+    textAlign: "center", 
+    padding: "50px 17px", 
+    background: "#f9f9f9", 
+    width: "98%", 
+    marginTop: "80px" // Creates spacing between the header and content
+  },
+  heading: { 
+    fontSize: "2.5rem", 
+    fontWeight: "bold", 
+    background: "linear-gradient(90deg, #004d00, #008000)", 
+    WebkitBackgroundClip: "text", 
+    WebkitTextFillColor: "transparent", 
+    marginBottom: "15px", 
+    fontFamily: "Lato" 
+  },
+  subHeading: { 
+    fontSize: "1.2rem", 
+    color: "#555", 
+    marginBottom: "40px", 
+    fontFamily: "'Roboto', sans-serif" 
+  },
+  cardContainer: { 
+    display: "flex", 
+    justifyContent: "center", 
+    gap: "40px", 
+    flexWrap: "wrap" 
+  },
+  imageContainer: { 
+    position: "relative", 
+    overflow: "hidden", 
+    cursor: "pointer", 
+    borderRadius: "12px", 
+    transition: "transform 0.3s ease-in-out" 
+  },
+  image: { 
+    width: "280px", 
+    height: "380px", 
+    objectFit: "cover", 
+    borderRadius: "10px", 
+    transition: "transform 0.4s ease-in-out" 
+  },
   overlay: {
     position: "absolute",
     bottom: "0",
