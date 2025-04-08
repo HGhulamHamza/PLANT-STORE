@@ -1,4 +1,11 @@
 /* Contact Page Styling */
+/* Prevent horizontal scroll */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .contact-hero {
     margin-top: 80px;
     background-size: cover;
@@ -26,6 +33,7 @@
   
   /* Left Side - Contact Card */
   .contact-card {
+    
     background: #00550F;
     color: white;
     padding: 20px;
@@ -36,9 +44,14 @@
   }
   
   .contact-card a {
+    
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+  
+  }.contact-card p{
+    margin-top: 10px;
+    margin-bottom: 14px;
   }
   
   .contact-card a:hover {
@@ -147,3 +160,63 @@
     100% { opacity: 0; transform: translateY(20px); }
   }
   
+  @media screen and (max-width: 768px) {
+    /* Hero Section Responsive */
+    .contact-hero {
+        height: 200px;
+        font-size: 1.5rem;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    .contact-title {
+        font-size: 1.8rem;
+    }
+
+    /* Main Contact Container Responsive */
+    .contact-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    /* Contact Card First on Mobile */
+    .contact-card {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    /* Contact Form Container */
+    .contact-form-container {
+        width: 90%;
+    }
+
+    /* Contact Form Inner Content */
+    .contact-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .contact-form p {
+        font-size: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%; /* Full width inputs */
+    }
+
+    /* Submit Button Responsive */
+    .submit-btn {
+        width: 30%;
+        margin-left: 0;
+       margin-left: 120px;
+    }
+
+    /* Social Icons */
+    .social-icons {
+        justify-content: center;
+    }
+
+    .social-icon {
+        font-size: 28px;
+    }
+}

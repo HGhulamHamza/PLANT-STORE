@@ -1,94 +1,184 @@
-
-/* Navbar */
-.navbar {
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Navbar */
+  .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px;
-    background-color: transparent; /* Transparent Header */
-    width: 90%;
-    margin: auto;
-    position: absolute;
+    padding: 10px 15px;
+    background-color: transparent;
+    width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-}
-
-.logo {
-    height: 50px;
-}
-
-/* Centered Nav Links */
-.nav-links {
+    box-sizing: border-box;
+  }
+  
+  .logo {
+    height: 40px;
+    margin-left: 10px;
+  }
+  
+  /* Desktop Nav Links */
+  .nav-links {
     list-style: none;
     display: flex;
     gap: 60px;
     margin-left: 50px;
     flex: 1;
     justify-content: center;
-}
-
-.nav-links li {
+  }
+  
+  .nav-links li {
     display: inline;
-}
-
-.nav-links a {
+  }
+  
+  .nav-links a {
     text-decoration: none;
-    color: #555555; /* White Text */
+    color: #555555;
     font-weight: bold;
     font-size: 18px;
     transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #006D00; /* Green Hover */
-}
-
-/* Search Bar */
-.search-bar {
+  }
+  
+  .nav-links a:hover {
+    color: #006D00;
+  }
+  
+  /* Search Bar */
+  .search-bar {
     display: flex;
     align-items: center;
-    background:white;
+    background: white;
     border-radius: 20px;
     padding: 5px 15px;
     border: 1px solid #555555;
-}
-
-.search-bar input {
+    min-width: 80px;
+    margin-right: 10px;
+  }
+  
+  .search-bar input {
     border: none;
     outline: none;
     padding: 5px;
     font-size: 14px;
-    width: 150px;
-}
-
-/* Cart Icon */
-.cart-icon {
+    width: 120px;
+  }
+  
+  /* Cart Icon */
+  .cart-icon {
     font-size: 20px;
     color: #555555;
-    margin-left: 20px;
+    margin-right: 40px;
     cursor: pointer;
     transition: color 0.3s ease;
-}
-
-.cart-icon:hover {
+  }
+  
+  .cart-icon:hover {
     color: #006D00;
-}
-
-/* Signup Button */
-.signup-btn {
+  }
+  
+  /* Signup Button */
+  .signup-btn {
+    display: inline-block; /* Show it on desktop */
+    padding: 10px 20px;
     background-color: #006D00;
     color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 16px;
     text-decoration: none;
+    border-radius: 20px;
     font-weight: bold;
-    margin-left: 20px;
-    transition: background 0.3s ease;
-}
-
-.signup-btn:hover {
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-btn:hover {
     background-color: #004d00;
-}
+  }
+  .mobile-nav{
+    display: none;
+  }
+  .hamburger-icon{
+    display: none;
+  }
+  
+  /* Mobile Styling */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      justify-content: space-between;
+      padding: 10px 15px;
+    }
+  
+    .logo {
+      height: 30px;
+    }
+  
+    /* Hide desktop nav links and signup button on mobile */
+    .nav-links {
+      display: none;
+    }
+  
+    .signup-btn {
+      display: none; /* Hide on mobile */
+    }
+  
+    /* Hamburger icon */
+    .hamburger-icon {
+      display: block;
+      font-size: 24px;
+      color: #555555;
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+    }
+  
+    /* Mobile Nav Links */
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0; /* Align to the right */
+      background-color: white;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%; /* Make it take full width */
+    }
+  
+    .mobile-nav.active {
+      display: block;
+    }
+  
+    .mobile-nav li {
+      list-style: none;
+      margin-bottom: 10px;
+      text-align: right; /* Align the text to the right */
+    }
+  
+    .mobile-nav a {
+      text-decoration: none;
+      color: #555555;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 5px 20px; /* Add horizontal padding for better spacing */
+      display: block; /* Make the link take up full width */
+      transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transition */
+    }
+  
+    .mobile-nav a:hover {
+      background-color: #006D00; /* Green background on hover */
+      color: white; /* Change text color to white on hover */
+    }
+  
+    /* Search bar on mobile */
+    .search-bar {
+      border-radius: 20px;
+      min-width: 110px;
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  }
+  

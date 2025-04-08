@@ -104,4 +104,43 @@
     }
 }
 
+/* About Us Content Section for Mobile */
+@media screen and (max-width: 768px) {
+    .about-content {
+        flex-direction: column; /* Stack items vertically on mobile */
+        padding: 30px 20px; /* Adjust padding for better spacing on mobile */
+    }
+
+    /* Left Side - Text */
+    .about-text {
+        width: 100%; /* Full width for text on mobile */
+        padding-right: 0; /* Remove extra padding */
+        margin-bottom: 20px; /* Add margin to separate text and video */
+    }
+
+    .about-text h2 {
+        font-size: 24px; /* Adjust font size for mobile */
+        text-align: left; /* Ensure heading is left-aligned */
+    }
+
+    .about-text p {
+        font-size: 16px; /* Smaller font size for mobile */
+        line-height: 1.6;
+        max-width: 100%; /* Ensure the paragraph takes full width */
+    }
+
+    /* Right Side - Video */
+    .about-video-container {
+        width: 100%; /* Full width for video on mobile */
+        margin-top: 20px; /* Add space between text and video */
+    }
+
+    .about-video {
+        width: 100%; /* Full width for the video container */
+        height: 200px; /* Adjust video height for mobile */
+        border-radius: 10px;
+        border: 7px solid #00550F;
+        box-shadow: 0px 8px 16px rgba(0, 128, 0, 0.3);
+    }
+}
 
