@@ -7,6 +7,8 @@ import logo from "../../public/logo.jpg";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +17,7 @@ const Login = () => {
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -33,6 +36,8 @@ const Login = () => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+
+      dispatch(setUser(user)); // dispatch user to Redux store
 
       setSnackbar({ open: true, message: "Login successful!", severity: "success" });
       navigate("/products");

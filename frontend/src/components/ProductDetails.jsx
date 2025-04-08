@@ -3,12 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Typography, Button, Box, Card, CardMedia, IconButton } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -22,11 +26,9 @@ const ProductDetails = () => {
     fetchProductDetails();
   }, [id]);
 
-  const addToCart = () => {
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const handleAddToCart = () => {
     const item = { ...product, quantity };
-    const updatedCart = [...existingCart, item];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    dispatch(addToCart(item)); // use Redux instead of localStorage
     navigate("/cart");
   };
 
@@ -63,7 +65,7 @@ const ProductDetails = () => {
           </Box>
 
           <Box display="flex" justifyContent="center" gap={2}>
-            <Button variant="contained" onClick={addToCart} sx={{ backgroundColor: "#555" }}>Add to Cart</Button>
+            <Button variant="contained" onClick={handleAddToCart} sx={{ backgroundColor: "#555" }}>Add to Cart</Button>
             <Button variant="contained" sx={{ backgroundColor: "#008000" }} onClick={() => navigate("/buy-now")}>
               Buy Now
             </Button>

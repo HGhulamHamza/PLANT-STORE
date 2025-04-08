@@ -7,6 +7,8 @@ import logo from "../../public/logo.jpg";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice"; // import action
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -18,6 +20,7 @@ const Signup = () => {
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // add dispatch
 
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -31,11 +34,16 @@ const Signup = () => {
     }
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "http://localhost:5000/api/auth/signup",
         { name, email, password },
         { withCredentials: true }
       );
+
+      const { token, user } = response.data;
+
+      // Save to redux (so it persists via redux-persist)
+      dispatch(setUser(user));
 
       setSnackbar({ open: true, message: "Account created! Please log in.", severity: "success" });
       navigate("/login");
@@ -57,7 +65,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          
+
           <div className="password-input">
             <input
               type={showPassword ? "text" : "password"}
