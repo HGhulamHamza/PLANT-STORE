@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -9,11 +11,33 @@ import BuyNowPage from "./pages/BuyNowPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import CartPage from "./pages/CartPage";
+import { setUser } from "./redux/userSlice";
+
+// Protected Route component for cart access
+const ProtectedRoute = ({ children }) => {
+  const user = useSelector((state) => state.user.user);
+
+  if (!user) {
+    // If no user, redirect to login page
+    localStorage.setItem("redirectAfterLogin", "/cart"); // Save path for redirect
+    return <Navigate to="/login" replace />;
+  }
+
+  return children; // If user exists, render the children (CartPage)
+};
 
 const App = () => {
-  const isAuthenticated = () => {
-    return !!localStorage.getItem('user');
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Sync Redux with localStorage on initial load
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    if (user && token) {
+      dispatch(setUser({ user, token }));
+    }
+  }, [dispatch]);
 
   return (
     <Router>
@@ -27,13 +51,18 @@ const App = () => {
         <Route path="/buy-now" element={<BuyNowPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        {/* Protected Route for Cart */}
         <Route
           path="/cart"
-          element={isAuthenticated() ? <CartPage /> : <Navigate to="/login" />}
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

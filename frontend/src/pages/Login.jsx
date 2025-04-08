@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
+import { addToCart } from "../redux/cartSlice"; // Import the cart action
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,10 +38,22 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      dispatch(setUser(user)); // dispatch user to Redux store
+      dispatch(setUser({ user, token }));
+
+      // ✅ Handle redirection and add items to cart if pending
+      const pendingItem = JSON.parse(localStorage.getItem("pendingAddToCart"));
+      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/products";
+
+      if (pendingItem) {
+        dispatch(addToCart(pendingItem));
+        localStorage.removeItem("pendingAddToCart"); // Remove pending item
+        localStorage.removeItem("redirectAfterLogin"); // Remove redirect path
+        navigate("/cart");
+      } else {
+        navigate(redirectPath);
+      }
 
       setSnackbar({ open: true, message: "Login successful!", severity: "success" });
-      navigate("/products");
     } catch (error) {
       setSnackbar({
         open: true,
@@ -57,7 +70,13 @@ const Login = () => {
         <img src={logo} alt="Eco Roof Logo" className="logo" />
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
           <div className="password-input">
             <input
               type={showPassword ? "text" : "password"}

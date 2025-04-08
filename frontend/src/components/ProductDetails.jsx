@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Container, Typography, Button, Box, Card, CardMedia, IconButton } from "@mui/material";
+import {
+  Container, Typography, Button, Box, Card, CardMedia, IconButton
+} from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 
 const ProductDetails = () => {
@@ -13,6 +15,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -27,8 +30,16 @@ const ProductDetails = () => {
   }, [id]);
 
   const handleAddToCart = () => {
+    if (!user) {
+      // Save product info for after login
+      localStorage.setItem("redirectAfterLogin", `/product/${id}`);
+      localStorage.setItem("pendingAddToCart", JSON.stringify({ ...product, quantity }));
+      navigate("/login");
+      return;
+    }
+
     const item = { ...product, quantity };
-    dispatch(addToCart(item)); // use Redux instead of localStorage
+    dispatch(addToCart(item));
     navigate("/cart");
   };
 
