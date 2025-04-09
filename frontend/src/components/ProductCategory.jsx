@@ -8,6 +8,8 @@ import {
 import { Search, ShoppingCart } from "@mui/icons-material";
 import Lottie from "lottie-react";
 import loaderAnimation from "../assets/plant-loader.json"; // Adjust path if needed
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 
 const ProductCategory = () => {
@@ -17,6 +19,9 @@ const ProductCategory = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const user = useSelector((state)=> state.user.user);
+
+  const dispatch = useDispatch();
 
   const getCategoryName = (shortCode) => {
     const categoryMap = {
@@ -25,6 +30,24 @@ const ProductCategory = () => {
       GREENROOFPLANTS: "GREEN ROOF PLANTS",
     };
     return categoryMap[shortCode] || decodeURIComponent(shortCode);
+  };
+  const handleAddToCart = (id) => {
+    if (!user) {
+     console.log(user);
+      return;
+    }
+
+    const product = products.find((p) => p._id === id);
+
+    console.log(product,products, id);
+
+    const quantity = 1;
+
+    const item = { ...product, quantity };
+    if(item){
+      console.log(item);
+      dispatch(addToCart(item));    
+    }
   };
 
   useEffect(() => {
@@ -57,10 +80,6 @@ const ProductCategory = () => {
     if (e.key === "Enter") {
       fetchProducts(searchQuery);
     }
-  };
-
-  const handleAddToCart = () => {
-    setSnackbarOpen(true);
   };
 
   return (
@@ -143,7 +162,7 @@ const ProductCategory = () => {
 </Typography>
 
 
-                      <IconButton onClick={handleAddToCart}>
+                      <IconButton onClick={()=>handleAddToCart(product._id)}>
                         <ShoppingCart sx={{ color: "#006600" }} />
                       </IconButton>
                     </Box>

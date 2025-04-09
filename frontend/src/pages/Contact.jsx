@@ -83,7 +83,7 @@ function Contact() {
         </div>
 
         <div className="contact-form-container">
-          <h2>We Love To Hear From You!</h2>
+          <h2>We  Would Love To Hear From You!</h2>
           <p>Fill out the form and our team will reach out to you soon.</p>
           <form onSubmit={handleSubmit} className="contact-form">
             <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />

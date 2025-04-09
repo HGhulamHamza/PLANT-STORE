@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const cart = useSelector((state)=> state.cart.cart);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -18,7 +20,7 @@ const CartPage = () => {
       ) : (
         <>
           <ul style={styles.list}>
-            {cartItems.map((item, index) => (
+            {cart.map((item, index) => (
               <li key={index} style={styles.item}>
                 <img src={`http://localhost:5000${item.image}`} alt={item.title} style={styles.image} />
                 <div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Auth.css";
@@ -9,7 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
-import { addToCart } from "../redux/cartSlice"; // Import the cart action
+import { clearCart } from "../redux/cartSlice"; // Import the cart action
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +23,12 @@ const Login = () => {
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
   };
+
+
+  useEffect(() => {
+    dispatch(clearCart());
+  }, [dispatch])
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,18 +46,8 @@ const Login = () => {
 
       dispatch(setUser({ user, token }));
 
-      // ✅ Handle redirection and add items to cart if pending
-      const pendingItem = JSON.parse(localStorage.getItem("pendingAddToCart"));
-      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/products";
-
-      if (pendingItem) {
-        dispatch(addToCart(pendingItem));
-        localStorage.removeItem("pendingAddToCart"); // Remove pending item
-        localStorage.removeItem("redirectAfterLogin"); // Remove redirect path
-        navigate("/cart");
-      } else {
-        navigate(redirectPath);
-      }
+      navigate("/");
+      
 
       setSnackbar({ open: true, message: "Login successful!", severity: "success" });
     } catch (error) {
@@ -62,6 +58,8 @@ const Login = () => {
       });
     }
   };
+
+  
 
   return (
     <div className="auth-container" style={{ backgroundImage: `url(${bgImage})` }}>
@@ -94,7 +92,7 @@ const Login = () => {
         <div className="google-auth">
           <FaGoogle /> Continue with Google
         </div>
-        <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+        <p>Don&apos;t have an account? <Link to="/signup">Sign Up</Link></p>
       </div>
 
       <Snackbar open={snackbar.open} autoHideDuration={4000} onClose={handleSnackbarClose}>

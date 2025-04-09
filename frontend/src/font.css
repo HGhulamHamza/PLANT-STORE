@@ -1,11 +1,11 @@
 /* src/fonts.css */
 
 /* Importing Playfair Display font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 /* Universal reset for margin, padding, and box-sizing */
 * {
-  font-family: 'Merriweather', serif !important;  /* Force this font everywhere */
+  font-family: 'Inter', serif !important;  /* Force this font everywhere */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,10 +13,10 @@
 
 /* Apply font to all headings and paragraph elements */
 h1, h2, h3, h4, h5, h6, p, span, a, li, ul, ol, blockquote, button {
-  font-family: 'Merriweather', serif !important;  /* Add !important to force override */
+  font-family: 'Inter', serif !important;  /* Add !important to force override */
 }
 
 /* Body */
 body {
-  font-family: 'Merriweather', serif !important; /* Ensure body uses the font */
+  font-family: 'Inter', serif !important; /* Ensure body uses the font */
 }
