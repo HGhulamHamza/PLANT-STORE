@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Button, IconButton, Popover } from "@mui/material";
 import { logout } from "../redux/userSlice";
 
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state)=>state.user.user);

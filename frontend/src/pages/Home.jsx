@@ -4,6 +4,7 @@ import "../styles/Home.css";
 import heroImage from "../../public/Hero7.jpg";
 import Header from "../components/Header";
 import Typed from "typed.js"; // Import Typed.js library
+import Footer from "../components/Footer";
 
 function Home() {
   useEffect(() => {
@@ -44,10 +45,16 @@ function Home() {
         {/* Hero Image */}
         <div className="hero-image">
           <img src={heroImage} alt="Green Roof" className="styled-image" />
+         
         </div>
+      
       </div>
+ <Footer/>
     </div>
+  
   );
+ 
 }
+
 
 export default Home;

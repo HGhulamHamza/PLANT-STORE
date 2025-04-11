@@ -14,7 +14,8 @@
   text-align: center;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
   width: 350px;
-  height: 600px;
+  height: 590px;
+  margin-top: 12px;
 }
 
 .auth-box.login-narrow {
@@ -161,4 +162,25 @@
 }
 .auth-box login-box{
   height: 300px;
+}
+.auth-box input {
+  width: 100%; /* Change from 90% to 100% */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size:15px;
+  box-sizing: border-box;
+}
+
+.password-input {
+  position: relative;
+  width: 100%; /* Ensure it takes full width */
+  margin: 10px 0; /* Add margin to match others */
+}
+
+.password-input input {
+  width: 100%;
+  padding-right: 35px;
+  box-sizing: border-box;
 }

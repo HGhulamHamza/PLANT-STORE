@@ -13,12 +13,11 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [area, setArea] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const cart = useSelector((state) => state.cart.cart);
-
-  console.log(product);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -38,11 +37,17 @@ const ProductDetails = () => {
       return;
     }
 
-    const item = { ...product, quantity };
+    const item = {
+      ...product,
+      quantity,
+      price:
+        product.category === "GREEN ROOF PLANTS"
+          ? 4220 * (parseFloat(area) || 1)
+          : product.price,
+    };
     dispatch(addToCart(item));
     navigate("/cart");
   };
-
 
   if (!product) {
     return <Typography variant="h5" align="center">Loading...</Typography>;
@@ -68,7 +73,42 @@ const ProductDetails = () => {
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>{product.title}</Typography>
           <Typography variant="subtitle1" color="textSecondary">{product.category}</Typography>
           <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>{product.description}</Typography>
-          <Typography variant="h5" sx={{ color: "#006600", mb: 2 }}>Rs {product.price}</Typography>
+
+          {product.category === "GREEN ROOF PLANTS" ? (
+            <>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                $15 per sq ft (Rs 4220)
+              </Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" sx={{ mb: 1 }}>Enter Area in sq ft:</Typography>
+                <input
+                  type="number"
+                  value={area}
+                  onChange={(e) => {
+                    const input = e.target.value;
+                    setArea(input);
+                    const sqft = parseFloat(input);
+                    if (!isNaN(sqft)) {
+                      setTotalPrice(sqft * 4220);
+                    } else {
+                      setTotalPrice(0);
+                    }
+                  }}
+                  style={{ padding: "8px", width: "100%", maxWidth: "200px", borderRadius: "6px", border: "1px solid #ccc" }}
+                  placeholder="e.g. 100"
+                />
+                {totalPrice > 0 && (
+                  <Typography variant="subtitle1" sx={{ mt: 1 }}>
+                    Total Price: Rs {totalPrice}
+                  </Typography>
+                )}
+              </Box>
+            </>
+          ) : (
+            <Typography variant="h5" sx={{ color: "#006600", mb: 2 }}>
+              Rs {product.price}
+            </Typography>
+          )}
 
           <Box display="flex" alignItems="center" justifyContent="center" sx={{ mb: 2 }}>
             <IconButton onClick={() => setQuantity(prev => Math.max(1, prev - 1))}><Remove /></IconButton>

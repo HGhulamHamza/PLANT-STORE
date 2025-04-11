@@ -1,4 +1,3 @@
-// cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -8,13 +7,13 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.payload);
+      state.cart.push(action.payload); // Adds a new item to cart
     },
     setCart: (state, action) => {
-      state.cart = action.payload;
+      state.cart = action.payload; // Updates the entire cart
     },
     clearCart: (state) => {
-      state.cart = [];
+      state.cart = []; // Empties cart
     },
   },
 });

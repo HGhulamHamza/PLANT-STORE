@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import CartPage from "./pages/CartPage";
 import { setUser } from "./redux/userSlice";
+import Footer from "./components/Footer";
 
 // Protected Route component for cart access
 const ProtectedRoute = ({ children }) => {
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/buy-now" element={<BuyNowPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/Footer" element={<Footer />} />
         {/* Protected Route for Cart */}
         <Route
           path="/cart"
