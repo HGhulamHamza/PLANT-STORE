@@ -10,6 +10,9 @@ import MuiAlert from "@mui/material/Alert";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
 import { clearCart } from "../redux/cartSlice"; // Import the cart action
+import { auth, provider } from "../firebase"; // adjust path if needed
+import { signInWithPopup } from "firebase/auth";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -58,7 +61,30 @@ const Login = () => {
       });
     }
   };
-
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+  
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      };
+  
+      
+  
+      dispatch(setUser({ user: userData, token: "google-oauth" }));
+      localStorage.setItem("user", JSON.stringify(userData));
+  
+      navigate("/");
+      setSnackbar({ open: true, message: "Logged in with Google!", severity: "success" });
+  
+    } catch (error) {
+      setSnackbar({ open: true, message: error.message, severity: "error" });
+    }
+  };
+  
   
 
   return (
@@ -89,9 +115,10 @@ const Login = () => {
           </div>
           <button type="submit">Login</button>
         </form>
-        <div className="google-auth">
-          <FaGoogle /> Continue with Google
-        </div>
+        <div className="google-auth" onClick={handleGoogleLogin}>
+  <FaGoogle /> Continue with Google
+</div>
+
         <p>Don&apos;t have an account? <Link to="/signup">Sign Up</Link></p>
       </div>
 

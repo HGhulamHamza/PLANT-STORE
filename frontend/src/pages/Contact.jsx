@@ -4,6 +4,7 @@ import "../styles/Contact.css";
 import Header from "../components/Header";
 import bgImage from "../../public/bg.jpg";
 import emailjs from "@emailjs/browser"; // Import EmailJS
+import Footer from "../components/Footer";
 
 function Contact() {
   const [showSnackbar, setShowSnackbar] = useState(false);
@@ -66,7 +67,7 @@ function Contact() {
 
           <div className="contact-details">
             <FaPhone className="contact-icon" />
-            <a href="tel:+923435886834">+92 343 5886834</a>
+            <a href="tel:+923435886834">+92 330 9222554</a>
           </div>
 
           <div className="social-icons">
@@ -96,6 +97,7 @@ function Contact() {
       </div>
 
       {showSnackbar && <div className="snackbar">Your message has been sent!</div>}
+      <Footer/>
     </div>
   );
 }

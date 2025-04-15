@@ -2,6 +2,7 @@ import "../styles/About.css";
 import aboutImage from "../../public/bg.jpg";
 import aboutVideo from "../../public/about.mp4";
 import Header from "../components/Header"; // Import Header
+import Footer from "../components/Footer";
 
 function About() {
   return (
@@ -34,6 +35,7 @@ function About() {
           </video>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

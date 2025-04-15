@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const ProductCategories = () => {
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -84,6 +85,7 @@ const ProductCategories = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

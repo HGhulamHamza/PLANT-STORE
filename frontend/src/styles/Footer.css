@@ -1,65 +1,228 @@
-/* Reset browser default spacing */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Footer container */
+footer {
+  background-color: #649B33; /* bg-green-700 */
+  color: white;
+}
+
+/* Grid layout for footer sections */
+footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  footer .container {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .footer-container {
-    background-color: #F9F9F9;
-    position: relative;
-    padding-bottom: 0;
+}
+
+/* Logo and description */
+footer .logo-description {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+footer .logo-description .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+footer .logo-description .logo h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+footer .logo-description p {
+  font-size: 14px;
+}
+
+/* Company links */
+footer .company-links {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px; /* Adds left margin */
+}
+
+footer .company-links h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+footer .company-links ul {
+  padding: 0;
+  list-style: none;
+}
+
+footer .company-links li {
+  margin-bottom: 8px;
+}
+
+footer .company-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+
+footer .company-links a:hover {
+  text-decoration: underline;
+}
+
+/* Contact details */
+footer .contact-details {
+  display: flex;
+  flex-direction: column;
+}
+
+footer .contact-details h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-right: 52px;
+}
+
+footer .contact-details ul {
+  padding: 0;
+  list-style: none;
+}
+
+footer .contact-details li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+footer .contact-details a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  margin-left: 24px;
+}
+
+footer .contact-details a:hover {
+  text-decoration: underline;
+}
+
+/* Bottom section */
+footer .bottom-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 16px 24px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  footer .bottom-section {
+    flex-direction: row;
   }
+}
+
+footer .bottom-section p {
+  text-align: center;
+}
+
+footer .social-icons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+footer .social-icons a {
+  padding: 12px;
+  border-radius: 50%;
+  background-color: white;
+  color: #2f6a44; /* text-green-700 */
+  display: inline-block;
+  transition: background-color 0.3s, color 0.3s;
+  width: 40px;
+  height: 40px; /* Increase the size for more circular appearance */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .social-icons a:hover {
+  background-color: #388c59; /* hover:bg-green-600 */
+  color: white;
+}
+
+/* Icon styles */
+footer .contact-details .icon,
+footer .social-icons .icon {
+
+  font-size: 18px;
+}
+
+footer .logo-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+footer .logo-description .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+footer .logo-description .logo .icon {
+  font-size: 55px; /* Make leaf icon bigger */
+  margin-right: 4px; /* Slightly to the left */
+  color:white;
   
-  .footer-content {
-    padding: 20px 20px 0;
-   
-    margin: 0 auto;
-    margin-bottom: -100px; /* Pulls content close to the image */
+}
+
+footer .logo-description .logo h2 {
+  font-size: 22px;
+  font-weight: bold; 
+  margin: 0;
+}
+
+footer .logo-description p {
+  font-size: 14px;
+  margin-top: 4px;
+}
+@media (max-width: 767px) {
+  footer .company-links,
+  footer .contact-details {
+    width: 50%;
   }
-  
-  .footer-heading {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #006D00; /* Elegant Green */
-    margin-bottom: 8px;
+
+  footer .container {
+    flex-wrap: wrap;
   }
-  
-  .footer-contact {
-    margin-bottom: -708px;
+
+  footer .company-links,
+  footer .contact-details {
+    display: inline-block;
+    vertical-align: top;
   }
-  
-  .footer-email,
-  .footer-phone {
-    font-size:1rem;
-    color: #555;
-    margin: 3px 0;
-  }
-  
-  .footer-icons {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-bottom: 10px;
-  }
-  
-  .footer-icon {
-    font-size: 2.2rem;
-    color: black;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
-  
-  .footer-icon:hover {
-    color: #2f855a;
-    transform: scale(1.2);
-  }
-  
-  .footer-image {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    margin-top: -60px; /* Ensures tight spacing with content */
-    display: block;
-  }
-  
+}
+/* Ensure h2 text stays in one line */
+footer .logo-description .logo h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap; /* Prevents wrapping to next line */
+}
+footer .logo-description .logo .icon {
+  font-size: 35px;
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+}
+
+
